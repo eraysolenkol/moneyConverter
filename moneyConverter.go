@@ -84,63 +84,83 @@ type CNY struct {
 }
 
 // This function converts the money and prints it.
-func convertMoney(nameOfMoney string, apiResponse ApiResponse) {
+func convertMoney(nameOfMoney string, apiResponse ApiResponse, convert int) {
 
 	var money float64
 	var convertedMoney float64
+	var convertedInverseMoney float64
 	var updateDate string
 
-	fmt.Printf("Please enter the USD amount")
+	if convert == 1 {
+		fmt.Printf("Please enter the USD amount")
+	} else if convert == 2 {
+		fmt.Printf("Please enter the %s amount", nameOfMoney)
+	}
+
 	fmt.Scanln(&money)
 
 	if nameOfMoney == apiResponse.Eur.Name {
 
 		convertedMoney = apiResponse.Eur.Rate
+		convertedInverseMoney = apiResponse.Eur.InverseRate
 		updateDate = apiResponse.Eur.Date
 
 	} else if nameOfMoney == apiResponse.Gbp.Name {
 
 		convertedMoney = apiResponse.Gbp.Rate
+		convertedInverseMoney = apiResponse.Gbp.InverseRate
 		updateDate = apiResponse.Gbp.Date
 
 	} else if nameOfMoney == apiResponse.Jpy.Name {
 
 		convertedMoney = apiResponse.Jpy.Rate
+		convertedInverseMoney = apiResponse.Jpy.InverseRate
 		updateDate = apiResponse.Jpy.Date
 
 	} else if nameOfMoney == apiResponse.Aud.Name {
 
 		convertedMoney = apiResponse.Aud.Rate
+		convertedInverseMoney = apiResponse.Aud.InverseRate
 		updateDate = apiResponse.Aud.Date
 
 	} else if nameOfMoney == apiResponse.Chf.Name {
 
 		convertedMoney = apiResponse.Chf.Rate
+		convertedInverseMoney = apiResponse.Chf.InverseRate
 		updateDate = apiResponse.Chf.Date
 
 	} else if nameOfMoney == apiResponse.Cad.Name {
 
 		convertedMoney = apiResponse.Cad.Rate
+		convertedInverseMoney = apiResponse.Cad.InverseRate
 		updateDate = apiResponse.Cad.Date
 
 	} else if nameOfMoney == apiResponse.Pln.Name {
 
 		convertedMoney = apiResponse.Pln.Rate
+		convertedInverseMoney = apiResponse.Pln.InverseRate
 		updateDate = apiResponse.Pln.Date
 
 	} else if nameOfMoney == apiResponse.Try.Name {
 
 		convertedMoney = apiResponse.Try.Rate
+		convertedInverseMoney = apiResponse.Try.InverseRate
 		updateDate = apiResponse.Try.Date
 
 	} else if nameOfMoney == apiResponse.Cny.Name {
 
 		convertedMoney = apiResponse.Cny.Rate
+		convertedInverseMoney = apiResponse.Cny.InverseRate
 		updateDate = apiResponse.Cny.Date
 
 	}
 
-	fmt.Printf("%.2f USD = %.2f %s \n", money, convertedMoney*money, nameOfMoney)
+	if convert == 1 {
+		fmt.Printf("%.2f USD = %.2f %s \n", money, convertedMoney*money, nameOfMoney)
+	} else if convert == 2 {
+		fmt.Printf("%.2f %s = %.2f USD \n", money, nameOfMoney, convertedInverseMoney*money)
+	}
+
 	fmt.Println("Update date:", updateDate)
 
 }
@@ -165,27 +185,31 @@ func main() {
 	fmt.Println("Enter the number of operation you want to choose.")
 
 	var pick int
+	var secondPick int
 	fmt.Scanln(&pick)
+
+	fmt.Println("Do you want to convert from USD or do inverse convert? \nEnter 1 for convert from USD otherwise enter 2")
+	fmt.Scanln(&secondPick)
 
 	switch pick {
 	case 1:
-		convertMoney("Euro", apiResponse)
+		convertMoney("Euro", apiResponse, secondPick)
 	case 2:
-		convertMoney("U.K. Pound Sterling", apiResponse)
+		convertMoney("U.K. Pound Sterling", apiResponse, secondPick)
 	case 3:
-		convertMoney("Japanese Yen", apiResponse)
+		convertMoney("Japanese Yen", apiResponse, secondPick)
 	case 4:
-		convertMoney("Australian Dollar", apiResponse)
+		convertMoney("Australian Dollar", apiResponse, secondPick)
 	case 5:
-		convertMoney("Swiss Franc", apiResponse)
+		convertMoney("Swiss Franc", apiResponse, secondPick)
 	case 6:
-		convertMoney("Canadian Dollar", apiResponse)
+		convertMoney("Canadian Dollar", apiResponse, secondPick)
 	case 7:
-		convertMoney("Polish Zloty", apiResponse)
+		convertMoney("Polish Zloty", apiResponse, secondPick)
 	case 8:
-		convertMoney("Turkish Lira", apiResponse)
+		convertMoney("Turkish Lira", apiResponse, secondPick)
 	case 9:
-		convertMoney("Chinese Yuan", apiResponse)
+		convertMoney("Chinese Yuan", apiResponse, secondPick)
 	}
 
 }
