@@ -1,4 +1,4 @@
 # moneyConverter
-moneyConverter.go converts some foreign currency to turkish lira
+moneyConverter.go converts USD to foreign currency
 
 This is my first little repository in Go and also in GitHub 
